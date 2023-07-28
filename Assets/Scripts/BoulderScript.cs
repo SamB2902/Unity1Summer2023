@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class BoulderScript : MonoBehaviour
 {
+    public Transform PlayerSpawn;
     public Vector3 startPos;
     Rigidbody rb;
     [Tooltip("Ajust the thrust of the object")]
     [Range(0,100)]
     public float thrust = 10;
-    public ScoreScript score;
+    public ScoreScript Score;
     // Start is called before the first frame update
     void Start()
     {
+        PlayerSpawn = GameObject.Find("PlayerSpawn").transform;
         //Grab Start position of object
         startPos = transform.position;
         //use GetComponent to assign Rigidbody
@@ -30,12 +32,19 @@ public class BoulderScript : MonoBehaviour
         }
     }
 
-   private void onCollisionEnter(Collision collision)
+   private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "PlayerCapsule")
         {
-            
-                ResetBoulder();
+            collision.gameObject.transform.parent.GetComponent<CharacterController>().enabled = false;
+            collision.gameObject.transform.parent.position = PlayerSpawn.position;
+            collision.gameObject.transform.parent.GetComponent<CharacterController>().enabled = true;
+            Score.AddScore();
+        }
+
+        if(collision.gameObject.CompareTag("BoulderReset"))
+        {
+            ResetBoulder();
         }
     }
  
@@ -43,6 +52,6 @@ public class BoulderScript : MonoBehaviour
     {
         transform.position = startPos;
         rb.velocity = Vector3.zero; //Vector3 (0,0,0)
-        score.AddScore();
+        Score.AddScore();
     }
 }
