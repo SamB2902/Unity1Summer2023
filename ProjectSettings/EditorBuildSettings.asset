@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Terrain Scene.unity
-    guid: a69260b16ed2ac6498fb47720ec91afd
+    path: Assets/Scenes/PaddleMainMenu.unity
+    guid: d97fbadace7b4b942b01f183dc926ed3
+  - enabled: 1
+    path: Assets/Scenes/Paddle Game.unity
+    guid: e4713743bd17f2442af555c2256fab5f
   m_configObjects: {}
